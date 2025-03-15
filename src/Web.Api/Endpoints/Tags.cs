@@ -2,5 +2,5 @@
 
 public static class Tags
 {
-    public const string Candidate = "candidates";
+    public const string Candidate = "Candidates";
 }
