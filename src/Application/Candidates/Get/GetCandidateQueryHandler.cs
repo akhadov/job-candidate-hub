@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Abstractions.Data;
+﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
+using Domain.Canditates;
 using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
@@ -33,6 +29,11 @@ internal sealed class GetCandidateQueryHandler(IApplicationDbContext context)
                 UpdatedAt = x.UpdatedAt
             })
             .SingleOrDefaultAsync(cancellationToken);
+
+        if (candidate is null)
+        {
+            return Result.Failure<CandidateResponse>(CandidateErrors.NotFound(request.CandidateId));
+        }
 
         return candidate;
     }

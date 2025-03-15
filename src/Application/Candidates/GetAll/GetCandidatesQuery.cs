@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Abstractions.Messaging;
+using Application.Abstractions.Models;
 
 namespace Application.Candidates.GetAll;
 
-public sealed record GetCandidatesQuery
-{
-}
+public sealed record GetCandidatesQuery(int PageNumber, int PageSize) : IQuery<PaginatedList<CandidatesResponse>>;

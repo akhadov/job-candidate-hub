@@ -1,14 +1,10 @@
-﻿using System.Text;
-using Application.Abstractions.Data;
+﻿using Application.Abstractions.Data;
 using Infrastructure.Database;
 using Infrastructure.Time;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using SharedKernel;
 
 namespace Infrastructure;

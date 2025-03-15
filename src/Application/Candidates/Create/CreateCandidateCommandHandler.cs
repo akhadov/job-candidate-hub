@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Abstractions.Data;
+﻿using Application.Abstractions.Data;
 using Application.Abstractions.Messaging;
 using Domain.Canditates;
-using Microsoft.EntityFrameworkCore;
 using SharedKernel;
 
 namespace Application.Candidates.Create;
 
 internal sealed class CreateCandidateCommandHandler(
-    IApplicationDbContext context, 
+    IApplicationDbContext context,
     IDateTimeProvider dateTimeProvider)
     : ICommandHandler<CreateCandidateCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreateCandidateCommand request, CancellationToken cancellationToken)
     {
         ///Candidate? candidate = await context.Candidates.SingleOrDefaultAsync(x => x.Id == request.Id, cancellationToken);
-        
+
         var candidate = new Candidate
         {
             FirstName = request.FirstName,
