@@ -1,8 +1,5 @@
 ﻿using System.Text;
-using Application.Abstractions.Authentication;
 using Application.Abstractions.Data;
-using Infrastructure.Authentication;
-using Infrastructure.Authorization;
 using Infrastructure.Database;
 using Infrastructure.Time;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,9 +21,7 @@ public static class DependencyInjection
         services
             .AddServices()
             .AddDatabase(configuration)
-            .AddHealthChecks(configuration)
-            .AddAuthenticationInternal(configuration)
-            .AddAuthorizationInternal();
+            .AddHealthChecks(configuration);
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
@@ -55,44 +50,6 @@ public static class DependencyInjection
         services
             .AddHealthChecks()
             .AddNpgSql(configuration.GetConnectionString("Database")!);
-
-        return services;
-    }
-
-    private static IServiceCollection AddAuthenticationInternal(
-        this IServiceCollection services,
-        IConfiguration configuration)
-    {
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(o =>
-            {
-                o.RequireHttpsMetadata = false;
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Secret"]!)),
-                    ValidIssuer = configuration["Jwt:Issuer"],
-                    ValidAudience = configuration["Jwt:Audience"],
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
-        services.AddHttpContextAccessor();
-        services.AddScoped<IUserContext, UserContext>();
-        services.AddSingleton<IPasswordHasher, PasswordHasher>();
-        services.AddSingleton<ITokenProvider, TokenProvider>();
-
-        return services;
-    }
-
-    private static IServiceCollection AddAuthorizationInternal(this IServiceCollection services)
-    {
-        services.AddAuthorization();
-
-        services.AddScoped<PermissionProvider>();
-
-        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
-        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
 
         return services;
     }

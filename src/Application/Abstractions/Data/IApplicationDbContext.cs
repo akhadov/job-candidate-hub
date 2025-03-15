@@ -1,13 +1,11 @@
-﻿using Domain.Todos;
-using Domain.Users;
+﻿using Domain.Canditates;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Abstractions.Data;
 
 public interface IApplicationDbContext
 {
-    DbSet<User> Users { get; }
-    DbSet<TodoItem> TodoItems { get; }
+    DbSet<Candidate> Candidates { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
