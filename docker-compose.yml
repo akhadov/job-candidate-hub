@@ -20,7 +20,7 @@ services:
     volumes:
       - ./.containers/db:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5434:5432
 
   seq:
     image: datalust/seq:2024.3

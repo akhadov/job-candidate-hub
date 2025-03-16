@@ -13,9 +13,26 @@ internal sealed class CreateCandidateCommandHandler(
 {
     public async Task<Result<Guid>> Handle(CreateCandidateCommand request, CancellationToken cancellationToken)
     {
-        if (await context.Candidates.AnyAsync(c => c.Email == request.Email, cancellationToken))
+        Candidate? existingCandidate = await context.Candidates
+            .FirstOrDefaultAsync(c => c.Email == request.Email, cancellationToken);
+
+        if (existingCandidate != null)
         {
-            return Result.Failure<Guid>(CandidateErrors.EmailNotUnique);
+            existingCandidate.FirstName = request.FirstName;
+            existingCandidate.LastName = request.LastName;
+            existingCandidate.PhoneNumber = request.PhoneNumber;
+            existingCandidate.PreferredCallStart = request.PreferredCallStart;
+            existingCandidate.PreferredCallEnd = request.PreferredCallEnd;
+            existingCandidate.LinkedIn = request.LinkedIn;
+            existingCandidate.GitHub = request.GitHub;
+            existingCandidate.Notes = request.Notes;
+            existingCandidate.UpdatedAt = dateTimeProvider.UtcNow;
+
+            context.Candidates.Update(existingCandidate);
+
+            await context.SaveChangesAsync(cancellationToken);
+
+            return existingCandidate.Id;
         }
 
         var candidate = new Candidate

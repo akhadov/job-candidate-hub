@@ -8,8 +8,9 @@ namespace Web.Api.Endpoints.Candidates;
 
 internal sealed class Update : IEndpoint
 {
-    public sealed class Request
+    public sealed class UpdateRequest
     {
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string? PhoneNumber { get; set; }
@@ -22,10 +23,11 @@ internal sealed class Update : IEndpoint
     }
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPut("candidates", async (Request request, ISender sender, CancellationToken cancellationToken) =>
+        app.MapPut("candidates", async (UpdateRequest request, ISender sender, CancellationToken cancellationToken) =>
         {
             var command = new UpdateCandidateCommand
             {
+                CandidateId = request.Id,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 PhoneNumber = request.PhoneNumber,
