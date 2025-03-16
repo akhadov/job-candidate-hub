@@ -26,6 +26,8 @@ Once the application is up and running, you can explore its API endpoints using 
 - **Secure Endpoint:** [https://localhost:5001/swagger/index.html](https://localhost:5001/swagger/index.html)
 - **Non-Secure Endpoint:** [http://localhost:5000/swagger/index.html](http://localhost:5000/swagger/index.html)
 
+### Swagger UI Preview:
+![Swagger UI Screenshot](image.png)
 
 ### Logging and Analysis:
 - **Seq for searching and analyzing structured logs**
