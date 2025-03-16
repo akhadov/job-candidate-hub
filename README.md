@@ -29,6 +29,23 @@ Once the application is up and running, you can explore its API endpoints using 
 ### Swagger UI Preview:
 ![Swagger UI Screenshot](image.png)
 
+### Sample Create Endpoint Request:
+To create a new candidate, use the following JSON payload:
+
+```json
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "phoneNumber": "123-456-7890",
+  "email": "john.doe@example.com",
+  "preferredCallStart": "09:00",
+  "preferredCallEnd": "10:00",
+  "linkedIn": "https://www.linkedin.com/in/johndoe",
+  "gitHub": "https://github.com/johndoe",
+  "notes": "Experienced software developer."
+}
+```
+
 ### Logging and Analysis:
 - **Seq for searching and analyzing structured logs**
   - Seq is available at [http://localhost:8081](http://localhost:8081) by default.
