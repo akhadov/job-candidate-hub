@@ -19,6 +19,8 @@ docker compose up
 
 Alternatively, open the solution in **Visual Studio**, set **Docker-Compose** as the startup project, and run the application.
 
+> ⚠ **Warning:** If the application fails to run, shut it down and restart it to resolve potential issues.
+
 ### API Documentation:
 Once the application is up and running, you can explore its API endpoints using Swagger UI at the following links:
 - **Secure Endpoint:** [https://localhost:5001/swagger/index.html](https://localhost:5001/swagger/index.html)
